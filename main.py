@@ -3,11 +3,16 @@ import datetime as dt
 from random import choice
 import pandas as pd
 import os
-import secrets # Imports sensitive data
 
-# Config to use the imported variables
-MY_MAIL = secrets.MY_MAIL
-MY_PASSWORD = secrets.MY_PASSWORD
+# Get credentials from the environment (GitHub Actions)
+# or fall back to local secrets if testing on your PC
+try:
+    import secrets
+    MY_MAIL = secrets.MY_MAIL
+    MY_PASSWORD = secrets.MY_PASSWORD
+except ImportError:
+    MY_MAIL = os.getenv("MY_EMAIL")
+    MY_PASSWORD = os.getenv("MY_PASSWORD")
 
 " No PRO email wishes sender (Something hardcoded,"
 " not using EmailMessage library, for example ...)"

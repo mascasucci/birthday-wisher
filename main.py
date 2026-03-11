@@ -68,23 +68,23 @@ except FileNotFoundError:
     print("Error: 'birthdays.csv' or template folder not found.")
 
 # Sending Section
-if birthday_queue:
-    answer = input(f"Do you want to send {len(birthday_queue)} mail(s)? (y/n): ")
-    if answer.lower() == "y":
-        try:
-            with smtplib.SMTP("smtp.gmail.com", 587) as connection:
-                connection.starttls()
-                connection.login(user=MY_EMAIL, password=MY_PASSWORD)
-                # Loop through the today's birthdays' list of dictionaries
-                for person in birthday_queue:
-                    connection.sendmail(
-                        from_addr=MY_EMAIL,
-                        to_addrs=person["email"],
-                        msg=f"Subject:Happy Birthday {person['name']}!\n\n{person['content']}"
-                    )
-            print("Success! All emails dispatched.")
-        except Exception as e:
-            print(f"❌ An error occurred: {e}")
-    else:
-        print("Please control the birthday's mail(s)\n"
-              "sending cancelled ...")
+if len(birthday_queue) > 0:
+#    answer = input(f"Do you want to send {len(birthday_queue)} mail(s)? (y/n): ")
+#    if answer.lower() == "y":
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+            connection.starttls()
+            connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+            # Loop through the today's birthdays' list of dictionaries
+            for person in birthday_queue:
+                connection.sendmail(
+                    from_addr=MY_EMAIL,
+                    to_addrs=person["email"],
+                    msg=f"Subject:Happy Birthday {person['name']}!\n\n{person['content']}"
+                )
+        print("Success! All emails dispatched.")
+    except Exception as e:
+        print(f"❌ An error occurred: {e}")
+# else:
+#     print("Please control the birthday's mail(s)\n"
+#           "sending cancelled ...")

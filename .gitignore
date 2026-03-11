@@ -3,7 +3,7 @@ my_credentials.py
 motivational_mail_sender.py
 main3.py
 quotes.txt
-.env
+
 
 # Ignore local data/logs
 outbox/
